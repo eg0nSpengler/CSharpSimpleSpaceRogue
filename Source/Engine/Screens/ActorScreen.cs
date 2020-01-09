@@ -48,7 +48,6 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
                 if (newPlayerPos.Y >= 0 && newPlayerPos.Y != 0)
                 {
                     newPlayerPos += SadConsole.Directions.North;
-
                 }
             }
 
@@ -65,7 +64,12 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
             {
                 if (newPlayerPos.Y <= mapScreen.mapConsole.Height - 2 && newPlayerPos.Y != mapScreen.mapConsole.Height)
                 {
-                    newPlayerPos += SadConsole.Directions.South;
+                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
+                    {
+                        newPlayerPos += SadConsole.Directions.South;
+                    }
+                    
+                    
                 }
             }
 

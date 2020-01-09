@@ -5,15 +5,15 @@ using SadConsole;
 using SadConsole.Input;
 using Microsoft.Xna.Framework;
 using SimpleSpaceRogue.Source.Engine.Tiles;
+using SimpleSpaceRogue.Source.Consoles;
 using Console = SadConsole.Console;
 
 namespace SimpleSpaceRogue.Source.Engine
 {
     class MapScreen : ContainerConsole
     {
-        public Console mapConsole { get; }
-        public List<TileBase> tileList { get; set; }
-    
+        public MapConsole mapConsole { get; }
+
         static void Init()
         {
             Global.CurrentScreen = new MapScreen();
@@ -23,17 +23,24 @@ namespace SimpleSpaceRogue.Source.Engine
         {
             var mapConsoleWidth = (int)((Global.RenderWidth / Global.FontDefault.Size.X) * 1.0f);
             var mapConsoleHeight = (int)((Global.RenderHeight / Global.FontDefault.Size.Y) * 1.0f);
-            mapConsole = new Console(mapConsoleWidth, mapConsoleHeight);
-            tileList = new List<TileBase>();
-            for (int i = 0; i <= mapConsole.Width; i++)
+            mapConsole = new MapConsole(mapConsoleWidth, mapConsoleHeight);
+            for (int x = 0; x <= mapConsole.Width; x++)
             {
-                tileList.Add(new TileFloor(i, i, '.'));
+                for (int y = 0; y <= mapConsole.Height; y++)
+                {
+                    mapConsole.tileList.Add(new TileFloor(x, y, '.', Color.LightGreen));
+                }
             }
-            //mapConsole.SetSurface(tileList.ToArray(), 1, 1);
+            //mapConsole.tileList.Add(new TileWall(5, 5, 'X', Color.Pink));
+
+            foreach(TileBase tile in mapConsole.tileList)
+            {
+                mapConsole.SetGlyph(tile.x, tile.y, tile.glyph, tile.foreColor);
+            }
+
             mapConsole.Parent = this;
             
         }
-
   
     }
 }
