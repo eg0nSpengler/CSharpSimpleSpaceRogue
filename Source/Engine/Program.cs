@@ -34,7 +34,7 @@ namespace SimpleSpaceRogue
             actorScreen = new ActorScreen();
             rootConsole.Children.Add(mapScreen);
             rootConsole.Children.Add(actorScreen);
-            SadConsole.Global.FocusedConsoles.Push(actorScreen);
+            SadConsole.Global.FocusedConsoles.Push(actorScreen.ActorConsole);
             SadConsole.Global.CurrentScreen = rootConsole;
 
 

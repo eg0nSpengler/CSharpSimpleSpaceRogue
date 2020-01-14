@@ -12,8 +12,7 @@ namespace SimpleSpaceRogue.Source.Engine
 {
     class MapScreen : ContainerConsole
     {
-        public MapConsole mapConsole { get; }
-
+        public MapConsole mapConsole;
         static void Init()
         {
             Global.CurrentScreen = new MapScreen();
@@ -31,9 +30,12 @@ namespace SimpleSpaceRogue.Source.Engine
                     mapConsole.tileList.Add(new TileFloor(x, y, '.', Color.LightGreen));
                 }
             }
-            //mapConsole.tileList.Add(new TileWall(5, 5, 'X', Color.Pink));
+            mapConsole.tileList.Add(new TileWall(5, 5, 'X', Color.Pink));
+            mapConsole.tileList.Add(new TileWall(5, 6, 'X', Color.Pink));
+            mapConsole.tileList.Add(new TileWall(5, 7, 'X', Color.Pink));
+            mapConsole.tileList.Add(new TileWall(5, 8, 'X', Color.Pink));
 
-            foreach(TileBase tile in mapConsole.tileList)
+            foreach (TileBase tile in mapConsole.tileList)
             {
                 mapConsole.SetGlyph(tile.x, tile.y, tile.glyph, tile.foreColor);
             }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SimpleSpaceRogue.Source.Engine.Actors;
+using SimpleSpaceRogue.Source.Engine.Actors.Items;
 using SadConsole;
 using SadConsole.Input;
 using Microsoft.Xna.Framework;
@@ -10,11 +12,17 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
 {
     class ActorScreen : ContainerConsole
     {
-        public Console ActorConsole { get; set; }
-        public List<Actor> actorList { get; set; }
-        public Actor player { get; set; }
+        public Console ActorConsole;
 
-        public MapScreen mapScreen { get; }
+        public List<Actor> actorList;
+
+        public Player player;
+
+        public MapScreen mapScreen;
+
+        public KeyboardComponent kbComponent;
+
+        public HealPatchItem healPatch;
 
         static void Init()
         {
@@ -28,10 +36,13 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
             actorList = new List<Actor>();
             ActorConsole = new Console(actorConsoleWidth, actorConsoleHeight);
             mapScreen = new MapScreen();
-            ActorConsole.Parent = this;
-            player = new Actor(1, 1, Color.Orange, Color.Transparent, '@');
+            player = new Player(1, 1, Color.Orange, Color.Transparent, '@');
+            healPatch = new HealPatchItem(10, 5, Color.Red, '!');
+            kbComponent = new KeyboardComponent(player, ref mapScreen);
+            actorList.Add(healPatch);
             actorList.Add(player);
-
+            ActorConsole.Parent = this;
+            ActorConsole.Components.Add(kbComponent);
             foreach (Actor act in actorList)
             {
                 ActorConsole.Children.Add(act);
@@ -39,77 +50,16 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
 
         }
 
-        public override bool ProcessKeyboard(Keyboard info)
+        public Actor GetItem(int x, int y)
         {
-            Point newPlayerPos = player.Position;
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.W))
+            foreach (Actor item in actorList)
             {
-                if (newPlayerPos.Y >= 0 && newPlayerPos.Y != 0)
+                if (item.x == x && item.y == y)
                 {
-                    newPlayerPos += SadConsole.Directions.North;
+                    return item;
                 }
             }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
-            {
-                if (newPlayerPos.X >= 0 && newPlayerPos.X != 0)
-                {
-                    newPlayerPos += SadConsole.Directions.West;
-                }
-
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.S))
-            {
-                if (newPlayerPos.Y <= mapScreen.mapConsole.Height - 2 && newPlayerPos.Y != mapScreen.mapConsole.Height)
-                {
-                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
-                    {
-                        newPlayerPos += SadConsole.Directions.South;
-                    }
-                    
-                    
-                }
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D))
-            {
-                if (newPlayerPos.X <= mapScreen.mapConsole.Width - 2 && newPlayerPos.X != mapScreen.mapConsole.Width)
-                {
-                    newPlayerPos += SadConsole.Directions.East;
-
-                }
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
-            {
-                newPlayerPos += SadConsole.Directions.NorthWest;
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
-            {
-                newPlayerPos += SadConsole.Directions.NorthEast;
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
-            {
-                newPlayerPos += SadConsole.Directions.SouthWest;
-            }
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
-            {
-                newPlayerPos += SadConsole.Directions.SouthEast;
-            }
-
-
-            if (newPlayerPos != player.Position)
-            {
-                player.Position = newPlayerPos;
-                return true;
-            }
-            return false;
-
+            return null;
         }
     }
 }

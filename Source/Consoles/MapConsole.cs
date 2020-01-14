@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SadConsole;
+using SimpleSpaceRogue.Source.Engine;
 using SimpleSpaceRogue.Source.Engine.Tiles;
 
 namespace SimpleSpaceRogue.Source.Consoles
@@ -11,7 +12,7 @@ namespace SimpleSpaceRogue.Source.Consoles
         /// <summary>
         /// A list of tiles for the entire map
         /// </summary>
-        public List<TileBase> tileList { get; set; }
+        public List<TileBase> tileList;
 
         public MapConsole(int width, int height) : base(width, height)
         {
@@ -20,9 +21,20 @@ namespace SimpleSpaceRogue.Source.Consoles
             tileList = new List<TileBase>();
         }
 
+
         public bool IsWall(int x, int y)
         {
-            return !tileList[x + y].IsWalkable;
+            foreach (TileBase tile in tileList)
+            {
+                if (tile.x == x && tile.y == y && tile.IsWalkable == false)
+                {
+                    System.Console.WriteLine("It's a wall!");
+                    return true;
+                }
+            }
+                return false;
         }
+
+       
     }
 }
