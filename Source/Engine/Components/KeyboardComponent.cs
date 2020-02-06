@@ -81,22 +81,37 @@ namespace SimpleSpaceRogue
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
            {
-               newPlayerPos += SadConsole.Directions.NorthWest;
+                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y - 1))
+                    {
+                       newPlayerPos += SadConsole.Directions.NorthWest; 
+                    }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
            {
-               newPlayerPos += SadConsole.Directions.NorthEast;
+                if (!mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y - 1))
+                {
+                    newPlayerPos += SadConsole.Directions.NorthEast;
+                }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
            {
-               newPlayerPos += SadConsole.Directions.SouthWest;
+                if (!mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y + 1))
+                {
+                    newPlayerPos += SadConsole.Directions.SouthWest;
+                }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
            {
-               newPlayerPos += SadConsole.Directions.SouthEast;
+                if (newPlayerPos.X + 1 <= mapScreen.mapConsole.Width && newPlayerPos.Y + 1 != mapScreen.mapConsole.Height)
+                {
+                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y + 1))
+                    {
+                        newPlayerPos += SadConsole.Directions.SouthEast;    
+                    }
+                }
            }
 
            if (newPlayerPos != player.Position)

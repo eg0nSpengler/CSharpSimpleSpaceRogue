@@ -13,6 +13,7 @@ namespace SimpleSpaceRogue
     {
         public static int screenWidth = 80;
         public static int screenHeight = 25;
+
         public static Console rootConsole;
         public static MapScreen mapScreen;
         public static ActorScreen actorScreen; 

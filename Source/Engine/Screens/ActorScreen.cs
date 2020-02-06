@@ -43,6 +43,7 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
             actorList.Add(player);
             ActorConsole.Parent = this;
             ActorConsole.Components.Add(kbComponent);
+
             foreach (Actor act in actorList)
             {
                 ActorConsole.Children.Add(act);
