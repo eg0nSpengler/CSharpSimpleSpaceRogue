@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SimpleSpaceRogue.Source.Engine.Actors;
 using SimpleSpaceRogue.Source.Engine.Actors.Items;
+using SimpleSpaceRogue.Source.Consoles;
 using SadConsole;
 using SadConsole.Input;
 using Microsoft.Xna.Framework;
@@ -10,11 +11,14 @@ using Console = SadConsole.Console;
 
 namespace SimpleSpaceRogue.Source.Engine.Screens
 {
-    class ActorScreen : ContainerConsole
+    /// <summary>
+    /// The ActorScreen serves as a Parent object for all actor-related consoles to bind to
+    /// </summary>
+    public class ActorScreen : ContainerConsole
     {
-        public Console ActorConsole;
+        public ActorConsole actorConsole;
 
-        public List<Actor> actorList;
+        /*public List<Actor> actorList;
 
         public Player player;
 
@@ -22,7 +26,7 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
 
         public KeyboardComponent kbComponent;
 
-        public HealPatchItem healPatch;
+        public HealPatchItem healPatch;*/
 
         static void Init()
         {
@@ -31,36 +35,9 @@ namespace SimpleSpaceRogue.Source.Engine.Screens
 
         public ActorScreen()
         {
-            var actorConsoleWidth = (int)((Global.RenderWidth / Global.FontDefault.Size.X) * 1.0f);
-            var actorConsoleHeight = (int)((Global.RenderHeight / Global.FontDefault.Size.Y) * 1.0f);
-            actorList = new List<Actor>();
-            ActorConsole = new Console(actorConsoleWidth, actorConsoleHeight);
-            mapScreen = new MapScreen();
-            player = new Player(1, 1, Color.Orange, Color.Transparent, '@');
-            healPatch = new HealPatchItem(10, 5, Color.Red, '!');
-            kbComponent = new KeyboardComponent(player, ref mapScreen);
-            actorList.Add(healPatch);
-            actorList.Add(player);
-            ActorConsole.Parent = this;
-            ActorConsole.Components.Add(kbComponent);
-
-            foreach (Actor act in actorList)
-            {
-                ActorConsole.Children.Add(act);
-            }
-
+            actorConsole = new ActorConsole(this);
         }
+       
 
-        public Actor GetItem(int x, int y)
-        {
-            foreach (Actor item in actorList)
-            {
-                if (item.x == x && item.y == y)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
     }
 }

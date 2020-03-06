@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using SadConsole.Entities;
@@ -11,44 +11,60 @@ namespace SimpleSpaceRogue.Source.Engine
     /// </summary>
     public class Actor : Entity
     {
-        public int x { get; private set; }
-        public int y { get; private set; }
-        public Color foreColor { get; private set; }
-        public Color backColor { get; private set; }
-        public int glyph { get; private set; }
+        /// <summary>
+        /// The glyph used to represent the Actor
+        /// </summary>
+       public int Glyph { get; }
 
-
+        /// <summary>
+        /// A base entity which has a Position, Glyph, and Color
+        /// </summary>
+        /// <param name="x">X Position</param>
+        /// <param name="y">Y Position</param>
+        /// <param name="foreground">Actor Foreground Color</param>
+        /// <param name="background">Actor Background Color</param>
+        /// <param name="glyph">The glyph to represent the Actor</param>
         public Actor(int x, int y, Color foreground, Color background, int glyph) : base(foreground, background, glyph)
         {
-            this.x = x;
-            this.y = y;
             this.Position = new Point(x, y);
-            this.foreColor = foreground;
-            this.backColor = background;
-            this.glyph = glyph;
+            this.DefaultForeground = foreground;
+            this.DefaultBackground = background;
+            this.Glyph = glyph;
         }
 
+        /// <summary>
+        /// A base entity which has a Position, Glyph, and Color
+        /// </summary>
+        /// <param name="x">X Position</param>
+        /// <param name="y">Y Position</param>
+        /// <param name="glyph">The glyph to represent the Actor</param>
         public Actor(int x, int y, int glyph) : base(1, 1)
         {
-            this.x = x;
-            this.y = y;
             this.Position = new Point(x, y);
-            this.glyph = glyph;
+            this.Glyph = glyph;
         }
 
+        /// <summary>
+        /// A base entity which has a Position, Glyph, and Color
+        /// </summary>
+        /// <param name="x">X Position</param>
+        /// <param name="y">Y Position</param>
+        /// <param name="foreground">Actor Foreground Color</param>
+        /// <param name="glyph">The glyph to represent the Actor</param>
         public Actor(int x, int y, Color foreground, int glyph) : base(foreground, Color.Transparent, glyph)
         {
-            this.x = x;
-            this.y = y;
             this.Position = new Point(x, y);
-            this.foreColor = foreground;
-            this.glyph = glyph;
+            this.DefaultForeground = foreground;
+            this.Glyph = glyph;
         }
 
+        /// <summary>
+        /// A base entity which has a Position, Glyph, and Color
+        /// </summary>
+        /// <param name="x">X Position</param>
+        /// <param name="y">Y Position</param>
         public Actor(int x, int y) : base(1, 1)
         {
-            this.x = x;
-            this.y = y;
             this.Position = new Point(x, y);
         }
 

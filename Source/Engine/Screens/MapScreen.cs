@@ -10,6 +10,9 @@ using Console = SadConsole.Console;
 
 namespace SimpleSpaceRogue.Source.Engine
 {
+    /// <summary>
+    /// The MapScreen serves as a Parent object for all map-related consoles to bind to
+    /// </summary>
     class MapScreen : ContainerConsole
     {
         public MapConsole mapConsole;
@@ -21,8 +24,7 @@ namespace SimpleSpaceRogue.Source.Engine
 
         public MapScreen()
         {
-            mapConsole = new MapConsole(640, 480);
-            mapConsole.Parent = this;
+            mapConsole = new MapConsole(SadConsole.Global.CurrentScreen.Width, SadConsole.Global.CurrentScreen.Height, this);
         }
 
     }

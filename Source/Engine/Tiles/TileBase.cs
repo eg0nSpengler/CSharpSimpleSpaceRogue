@@ -14,29 +14,44 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
         /// <summary>
         /// Can this tile be walked on?
         /// </summary>
-        public bool IsWalkable { get; protected set; }
-        /// <summary>
-        /// Foreground Color
-        /// </summary>
-        public Color foreColor { get; private set; }
-        public int glyph { get; private set; }
-        public int x { get; private set; }
-        public int y { get; private set; }
+        public bool IsWalkable { get; set; }
 
+        /// <summary>
+        /// Can this tile be seen through? (Glass windows, for example)
+        /// </summary>
+        public bool IsTransparent { get; set; }
+
+        /// <summary>
+        /// Has this tile been seen/explored? (FOV-related)
+        /// </summary>
+        public bool IsExplored { get; set; }
+
+        public Point Position { get; }
+
+        /// <summary>
+        /// The bounding box for this tile
+        /// </summary>
+        public BoundingBox Box { get; }
 
         public TileBase(int x, int y, int glyph)
         {
-            this.x = x;
-            this.y = y;
-            this.glyph = glyph;
+            this.Position = new Point(x, y);
+            this.Glyph = glyph;
+            this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));
         }
 
         public TileBase(int x, int y, int glyph, Color foregroundColor)
         {
-            this.x = x;
-            this.y = y;
-            this.glyph = glyph;
-            foreColor = foregroundColor;
+            this.Position = new Point(x, y);
+            this.Glyph = glyph;
+            this.Foreground = foregroundColor;
+            this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));
+        }
+
+        public TileBase(int x, int y)
+        {
+            this.Position = new Point(x, y);
+            this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));
         }
     }
 }

@@ -6,20 +6,29 @@ using SadConsole.Input;
 using Microsoft.Xna.Framework;
 using SimpleSpaceRogue.Source.Engine.Actors;
 using SimpleSpaceRogue.Source.Engine.Screens;
+using SimpleSpaceRogue.Source.Consoles;
 using SimpleSpaceRogue.Source.Engine;
 
 namespace SimpleSpaceRogue
 {
+    /// <summary>
+    /// A component that allows control of an actor (Moving, attacking, etc.)
+    /// </summary>
     class KeyboardComponent : KeyboardConsoleComponent
     {
-        private Player player;
+        private Actor _actor;
 
-        private MapScreen mapScreen;
+        private MapScreen _mapScreen;
 
-        public KeyboardComponent(Player player, ref MapScreen mapScreen)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actor"> The Actor to be controlled</param>
+        /// <param name="mapScreen">The parent MapScreen</param>
+        public KeyboardComponent(Actor actor, ref MapScreen mapScreen)
         {
-            this.player = player;
-            this.mapScreen = mapScreen;
+            this._actor = actor;
+            this._mapScreen = mapScreen;
         }
 
         public override void ProcessKeyboard(SadConsole.Console console, Keyboard info, out bool handled)
@@ -27,101 +36,117 @@ namespace SimpleSpaceRogue
             handled = true;
             HandleInput(info);
         }
-        public bool HandleInput(Keyboard info)
+
+        /// <summary>
+        /// Processes input for the controlled Actor
+        /// </summary>
+        /// <returns></returns>
+        private bool HandleInput(Keyboard info)
        {
-           Point newPlayerPos = player.Position;
-            
-           if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.W))
+
+            Point newPlayerPos = _actor.Position;
+
+            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.W))
            {
-               if (newPlayerPos.Y >= 0 && newPlayerPos.Y != 0)
-               {
-                   if (!mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y - 1))
+                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y - 1))
                    {
                        newPlayerPos += SadConsole.Directions.North;
-                   }
-               }
+                       MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+
+                    }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
            {
-               if (newPlayerPos.X >= 0 && newPlayerPos.X != 0)
-               {
-                   if (!mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y))
-                   {
-                       newPlayerPos += SadConsole.Directions.West;
-                   }
-               }
-
+                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y))
+                {
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.West;
+                }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.S))
            {
-               if (newPlayerPos.Y <= mapScreen.mapConsole.Height - 2 && newPlayerPos.Y != mapScreen.mapConsole.Height)
-               {
-                   if (!mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
-                   {
-                       newPlayerPos += SadConsole.Directions.South;
-                   }
 
-
-               }
+                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
+                {
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.South;
+                }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D))
            {
-               if (newPlayerPos.X <= mapScreen.mapConsole.Width - 2 && newPlayerPos.X != mapScreen.mapConsole.Width)
-               {
-                   if (!mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y))
+                   if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y))
                    {
-                       newPlayerPos += SadConsole.Directions.East;
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.East;
                    }
-
-               }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
            {
-                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y - 1))
+                    if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y - 1))
                     {
-                       newPlayerPos += SadConsole.Directions.NorthWest; 
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.NorthWest; 
                     }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
            {
-                if (!mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y - 1))
+                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y - 1))
                 {
-                    newPlayerPos += SadConsole.Directions.NorthEast;
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.NorthEast;
                 }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
            {
-                if (!mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y + 1))
+                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y + 1))
                 {
-                    newPlayerPos += SadConsole.Directions.SouthWest;
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                        newPlayerPos += SadConsole.Directions.SouthWest;
                 }
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
            {
-                if (newPlayerPos.X + 1 <= mapScreen.mapConsole.Width && newPlayerPos.Y + 1 != mapScreen.mapConsole.Height)
-                {
-                    if (!mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y + 1))
+                    if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y + 1))
                     {
+                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.SouthEast;    
                     }
-                }
            }
 
-           if (newPlayerPos != player.Position)
+           if (newPlayerPos != _actor.Position)
            {
-               player.Position = newPlayerPos;
+               _actor.Position = newPlayerPos;
                return true;
            }
            return false;
 
        }
 
+        /// <summary>
+        /// Used to take control of an Actor
+        /// </summary>
+        /// <param name="actor">The Actor to be controlled</param>
+        public void Possess(ref Actor actor)
+        {
+            if (actor == null)
+            {
+                Console.WriteLine("No valid actor found!");
+                return;
+            }
+            else 
+            {
+                _actor = actor;
+                Console.WriteLine("You have taken control of %s", actor.Name.ToString());
+            }
+        }
     }
+
+    
 }

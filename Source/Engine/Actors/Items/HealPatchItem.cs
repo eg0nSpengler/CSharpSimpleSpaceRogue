@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 using SimpleSpaceRogue.Source.Engine.Actors.Items.Uses;
+using SimpleSpaceRogue.Source.Engine.Components;
 using Microsoft.Xna.Framework;
 
 
 
 namespace SimpleSpaceRogue.Source.Engine.Actors.Items
 {
-    class HealPatchItem : ItemBase
+    /// <summary>
+    /// A patch that heals damage inflicted on an actor
+    /// </summary>
+    class HealPatchItem : ItemBase, IConsumable
     {
-        public HealUse healUse { get; }
+        public HealUse healUse;
 
-        public HealPatchItem(int x, int y, Color foreground, int glyph) : base(x, y, foreground, glyph)
+        public HealPatchItem(int x, int y) : base(x, y, Color.LightSalmon, '!')
         {
             healUse = new HealUse();
-            
+        }
+
+        public void Consume()
+        {
+          
         }
     }
 }

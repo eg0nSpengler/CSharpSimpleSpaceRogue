@@ -5,21 +5,23 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Console = SadConsole.Console;
 using SimpleSpaceRogue.Source.Engine;
+using SimpleSpaceRogue.Source.Consoles;
 using SimpleSpaceRogue.Source.Engine.Screens;
 
 namespace SimpleSpaceRogue
 {
     class Program
     {
-        public static int screenWidth = 80;
-        public static int screenHeight = 25;
+        private const int _screenWidth = 80;
+        private const int _screenHeight = 25;
 
-        public static Console rootConsole;
-        public static MapScreen mapScreen;
-        public static ActorScreen actorScreen; 
+        private static Console _rootConsole;
+        private static MapScreen _mapScreen;
+        private static ActorScreen _actorScreen; 
+
         static void Main(string[] args)
         {
-            SadConsole.Game.Create(screenWidth, screenHeight);
+            SadConsole.Game.Create(_screenWidth, _screenHeight);
 
             SadConsole.Game.OnInitialize = GameInit;
 
@@ -30,13 +32,13 @@ namespace SimpleSpaceRogue
 
         static void GameInit()
         {
-            rootConsole = new Console(screenWidth, screenHeight);
-            mapScreen = new MapScreen();
-            actorScreen = new ActorScreen();
-            rootConsole.Children.Add(mapScreen);
-            rootConsole.Children.Add(actorScreen);
-            SadConsole.Global.FocusedConsoles.Push(actorScreen.ActorConsole);
-            SadConsole.Global.CurrentScreen = rootConsole;
+            _rootConsole = new Console(_screenWidth, _screenHeight);
+            _mapScreen = new MapScreen();
+            _actorScreen = new ActorScreen();
+            _rootConsole.Children.Add(_mapScreen);
+            _rootConsole.Children.Add(_actorScreen);
+            SadConsole.Global.FocusedConsoles.Push(_actorScreen.actorConsole);
+            SadConsole.Global.CurrentScreen = _rootConsole;
 
 
         }

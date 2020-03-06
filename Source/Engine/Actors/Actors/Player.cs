@@ -6,15 +6,14 @@ using Microsoft.Xna.Framework;
 
 namespace SimpleSpaceRogue.Source.Engine.Actors
 {
+    /// <summary>
+    /// A controllable actor that serves as the Player Character
+    /// </summary>
     class Player : Actor
     {
-        public HealthComponent healthComponent { get; set; }
-        public InventoryComponent invComponent { get; set; }
-
-        public Player(int x, int y, Color foreground, Color background, int glyph) : base(x, y, foreground, background, glyph)
+        public Player(int x, int y) : base(x, y, Color.Pink, '@')
         {
-            healthComponent = new HealthComponent(5);
-            invComponent = new InventoryComponent();
+            System.Console.WriteLine("Player created!");
         }
 
     }
