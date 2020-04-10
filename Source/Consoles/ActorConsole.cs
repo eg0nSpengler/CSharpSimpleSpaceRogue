@@ -17,10 +17,11 @@ namespace SimpleSpaceRogue.Source.Consoles
         private static int _actorConsoleWidth = (int)((Global.RenderWidth / Global.FontDefault.Size.X) * 1.0f);
         private static int _actorConsoleHeight = (int)((Global.RenderHeight / Global.FontDefault.Size.Y) * 1.0f);
 
+        public static Player _player;
         private static List<Actor> _actorList;
-        private static Player _player;
         private static MapScreen _mapScreen;
         private static KeyboardComponent _kbComponent;
+
 
         /// <summary>
         /// 

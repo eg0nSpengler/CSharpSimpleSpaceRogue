@@ -18,7 +18,7 @@ namespace SimpleSpaceRogue.Source.Consoles
         /// A list of tiles for the entire map
         /// </summary>
         /// 
-        public static List<TileBase> tileList;
+        public static List<Tile> tileList;
 
         public static List<Ray> rays = new List<Ray>();
 
@@ -32,16 +32,17 @@ namespace SimpleSpaceRogue.Source.Consoles
         {
             Width = width;
             Height = height;
-            tileList = new List<TileBase>();
+            tileList = new List<Tile>();
             FillMap();
             CreateRooms();
             RenderMap();
+            UpdateFOV();
             this.Parent = parent;
         }
 
         public bool IsWalkable(int x, int y)
         {
-            foreach (TileBase tile in tileList)
+            foreach (Tile tile in tileList)
             {
                 if (tile == null)
                 {
@@ -71,11 +72,11 @@ namespace SimpleSpaceRogue.Source.Consoles
 
         public void FillMap()
         {
-            for(int x = 0; x <= SadConsole.Global.CurrentScreen.Width; x++)
+            for (int x = 0; x <= SadConsole.Global.CurrentScreen.Width; x++)
             {
                 for (int y = 0; y <= SadConsole.Global.CurrentScreen.Height; y++)
                 {
-                    tileList.Add(new TileBase(x, y));
+                    tileList.Add(new Tile(x, y));
                 }
             }
         }
@@ -101,30 +102,56 @@ namespace SimpleSpaceRogue.Source.Consoles
             SetProperties(4, 7, false, false);
             SetProperties(4, 8, false, false);
         }
-
-        public void BuildFOV()
+  
+ 
+        public void BuildFOV(int x, int y, int radius)
         {
-        
+            SetBackground(x, y, Color.Green);
         }
 
-        public static void UpdateFOV(float x, float y, int radius)
+        public void UpdateFOV()
         {
-            List<Ray> rays = new List<Ray>();
+            this.BuildFOV(ActorConsole._player.Position.X, ActorConsole._player.Position.Y, 5);
+        }
 
-            for (int i = 0; i <= 360; i += 10)
+        public bool IsInFov(int x, int y) 
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
             {
-                rays.Add(new Ray(new Vector3(x, y, 1.0f), new Vector3(i)));
+                return false;
             }
+            else
+            {
+                var index = tileList.FindIndex(tile => tile.Position.X == x && tile.Position.Y == y);
+                tileList[index].IsExplored = true;
+                return true;
+            }
+        }
 
+        public bool IsExplored(int x, int y)
+        {
+            var index = tileList.FindIndex(tile => tile.Position.X == x && tile.Position.Y == y);
+            return tileList[index].IsExplored;
         }
 
         public void RenderMap()
         {
-            foreach (TileBase tile in tileList)
+
+            foreach (Tile tile in tileList)
             {
-                this.SetGlyph(tile.Position.X, tile.Position.Y, IsWall(tile.Position.X, tile.Position.Y) ? 'X' : '.', IsWall(tile.Position.X, tile.Position.Y) ? Color.LightCoral : Color.LightGreen);
+                this.SetGlyph(tile.Position.X, tile.Position.Y, IsWall(tile.Position.X, tile.Position.Y) ? 'X' : '.');
+
+                if (IsInFov(tile.Position.X, tile.Position.Y))
+                {
+                    this.SetForeground(tile.Position.X, tile.Position.Y, IsWall(tile.Position.X, tile.Position.Y) ? Color.LightCyan : Color.LightGreen);
+                }
+                else if (IsExplored(tile.Position.X, tile.Position.Y))
+                {
+                    this.SetForeground(tile.Position.X, tile.Position.Y, IsWall(tile.Position.X, tile.Position.Y) ? Color.DarkCyan : Color.DarkGreen);
+                }
+
             }
-            
+
         }
 
         /// <summary>

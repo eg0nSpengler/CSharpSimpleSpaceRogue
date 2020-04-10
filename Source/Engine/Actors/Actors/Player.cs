@@ -9,7 +9,7 @@ namespace SimpleSpaceRogue.Source.Engine.Actors
     /// <summary>
     /// A controllable actor that serves as the Player Character
     /// </summary>
-    class Player : Actor
+    public class Player : Actor
     {
         public Player(int x, int y) : base(x, y, Color.Pink, '@')
         {

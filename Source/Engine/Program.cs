@@ -33,8 +33,8 @@ namespace SimpleSpaceRogue
         static void GameInit()
         {
             _rootConsole = new Console(_screenWidth, _screenHeight);
-            _mapScreen = new MapScreen();
             _actorScreen = new ActorScreen();
+            _mapScreen = new MapScreen();
             _rootConsole.Children.Add(_mapScreen);
             _rootConsole.Children.Add(_actorScreen);
             SadConsole.Global.FocusedConsoles.Push(_actorScreen.actorConsole);
@@ -42,5 +42,11 @@ namespace SimpleSpaceRogue
 
 
         }
+
+        static void GameUpdate(GameTime deltaTime)
+        {
+            
+        }
+
     }
 }

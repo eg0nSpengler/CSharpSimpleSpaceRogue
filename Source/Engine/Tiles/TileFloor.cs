@@ -9,7 +9,7 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
     /// <summary>
     /// A walkable floor tile
     /// </summary>
-    public class TileFloor : TileBase
+    public class TileFloor : Tile
     {
         public TileFloor(int x, int y, int glyph) : base(x, y, glyph)
         {

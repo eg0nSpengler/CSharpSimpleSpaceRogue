@@ -9,7 +9,7 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
     /// <summary>
     /// A base tile
     /// </summary>
-    public class TileBase : Cell
+    public class Tile : Cell
     {
         /// <summary>
         /// Can this tile be walked on?
@@ -33,14 +33,14 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
         /// </summary>
         public BoundingBox Box { get; }
 
-        public TileBase(int x, int y, int glyph)
+        public Tile(int x, int y, int glyph)
         {
             this.Position = new Point(x, y);
             this.Glyph = glyph;
             this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));
         }
 
-        public TileBase(int x, int y, int glyph, Color foregroundColor)
+        public Tile(int x, int y, int glyph, Color foregroundColor)
         {
             this.Position = new Point(x, y);
             this.Glyph = glyph;
@@ -48,7 +48,7 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
             this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));
         }
 
-        public TileBase(int x, int y)
+        public Tile(int x, int y)
         {
             this.Position = new Point(x, y);
             this.Box = new BoundingBox(new Vector3(x, y, 1.0f), new Vector3(1.0f));

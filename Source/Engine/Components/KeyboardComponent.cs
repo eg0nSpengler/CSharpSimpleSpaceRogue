@@ -51,7 +51,7 @@ namespace SimpleSpaceRogue
                 if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y - 1))
                    {
                        newPlayerPos += SadConsole.Directions.North;
-                       MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
+                       _mapScreen.mapConsole.UpdateFOV();
 
                     }
            }
@@ -60,8 +60,8 @@ namespace SimpleSpaceRogue
            {
                 if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y))
                 {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.West;
+                        _mapScreen.mapConsole.UpdateFOV();
                 }
            }
 
@@ -70,8 +70,8 @@ namespace SimpleSpaceRogue
 
                 if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
                 {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.South;
+                        _mapScreen.mapConsole.UpdateFOV();
                 }
            }
 
@@ -79,8 +79,8 @@ namespace SimpleSpaceRogue
            {
                    if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y))
                    {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.East;
+                        _mapScreen.mapConsole.UpdateFOV();
                    }
            }
 
@@ -88,8 +88,8 @@ namespace SimpleSpaceRogue
            {
                     if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y - 1))
                     {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.NorthWest; 
+                        _mapScreen.mapConsole.UpdateFOV();
                     }
            }
 
@@ -97,8 +97,8 @@ namespace SimpleSpaceRogue
            {
                 if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y - 1))
                 {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.NorthEast;
+                        _mapScreen.mapConsole.UpdateFOV();
                 }
            }
 
@@ -106,8 +106,8 @@ namespace SimpleSpaceRogue
            {
                 if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y + 1))
                 {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.SouthWest;
+                        _mapScreen.mapConsole.UpdateFOV();
                 }
            }
 
@@ -115,8 +115,8 @@ namespace SimpleSpaceRogue
            {
                     if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y + 1))
                     {
-                        MapConsole.UpdateFOV(_actor.Position.X, _actor.Position.Y, 5);
                         newPlayerPos += SadConsole.Directions.SouthEast;    
+                        _mapScreen.mapConsole.UpdateFOV();
                     }
            }
 
@@ -146,6 +146,7 @@ namespace SimpleSpaceRogue
                 Console.WriteLine("You have taken control of %s", actor.Name.ToString());
             }
         }
+
     }
 
     
