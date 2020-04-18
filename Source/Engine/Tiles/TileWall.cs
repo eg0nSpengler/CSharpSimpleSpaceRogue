@@ -11,14 +11,18 @@ namespace SimpleSpaceRogue.Source.Engine.Tiles
     public class TileWall : Tile
     {
 
-        public TileWall(int x, int y, int glyph) : base(x, y, glyph)
+        public TileWall(int x, int y) : base(x, y)
         {
             IsWalkable = false;
+            this.Glyph = 'X';
         }
 
         public TileWall(int x, int y, int glyph, Color foregroundColor) : base(x, y, glyph, foregroundColor)
         {
             IsWalkable = false;
+            this.Glyph = glyph;
+            this.Foreground = foregroundColor;
         }
+
     }
 }

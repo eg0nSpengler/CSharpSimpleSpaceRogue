@@ -14,6 +14,8 @@ namespace SimpleSpaceRogue.Source.Engine.Actors
         public Player(int x, int y) : base(x, y, Color.Pink, '@')
         {
             System.Console.WriteLine("Player created!");
+            this.IsWalkable = false;
+            this.IsTransparent = true;
         }
 
     }

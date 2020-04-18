@@ -19,12 +19,17 @@ namespace SimpleSpaceRogue.Source.Engine
 
         static void Init()
         {
-
+            
         }
 
         public MapScreen()
         {
             mapConsole = new MapConsole(SadConsole.Global.CurrentScreen.Width, SadConsole.Global.CurrentScreen.Height, this);
+        }
+
+        public override void Update(TimeSpan timeElapsed)
+        {
+            mapConsole.Update(timeElapsed);
         }
 
     }

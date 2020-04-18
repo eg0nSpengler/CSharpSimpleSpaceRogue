@@ -45,5 +45,10 @@ namespace SimpleSpaceRogue.Source.Consoles
             this.Parent = parent;
         }
 
+        public override void Update(TimeSpan timeElapsed)
+        {
+            
+        }
+
     }
 }

@@ -14,20 +14,26 @@ namespace SimpleSpaceRogue
     {
         private const int _screenWidth = 80;
         private const int _screenHeight = 25;
-
+        private static Microsoft.Xna.Framework.GameTime _gameTime;
         private static Console _rootConsole;
         private static MapScreen _mapScreen;
-        private static ActorScreen _actorScreen; 
+        private static ActorScreen _actorScreen;
+
 
         static void Main(string[] args)
+        
         {
             SadConsole.Game.Create(_screenWidth, _screenHeight);
 
             SadConsole.Game.OnInitialize = GameInit;
 
-            SadConsole.Game.Instance.Run();
+            SadConsole.Game.OnUpdate = GameUpdate;
+             
+            SadConsole.Game.OnDraw = GameDraw;
 
-            SadConsole.Game.Instance.Dispose();
+            SadConsole.Game.OnDestroy = GameDestroy;
+
+            SadConsole.Game.Instance.Run();
         }
 
         static void GameInit()
@@ -35,15 +41,24 @@ namespace SimpleSpaceRogue
             _rootConsole = new Console(_screenWidth, _screenHeight);
             _actorScreen = new ActorScreen();
             _mapScreen = new MapScreen();
+            _gameTime = new GameTime(new TimeSpan(), new TimeSpan());
             _rootConsole.Children.Add(_mapScreen);
             _rootConsole.Children.Add(_actorScreen);
             SadConsole.Global.FocusedConsoles.Push(_actorScreen.actorConsole);
-            SadConsole.Global.CurrentScreen = _rootConsole;
-
-
+            SadConsole.Global.CurrentScreen = _rootConsole; 
         }
 
-        static void GameUpdate(GameTime deltaTime)
+        static void GameUpdate(GameTime gameTime)
+        {
+            _mapScreen.mapConsole.Update(_gameTime.ElapsedGameTime);
+        }
+
+        static void GameDestroy()
+        {
+            System.Console.WriteLine("Game instance destroyed!");
+        }
+
+        static void GameDraw(GameTime gameTime)
         {
             
         }

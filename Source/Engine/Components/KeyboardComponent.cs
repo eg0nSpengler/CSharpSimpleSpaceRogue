@@ -44,85 +44,57 @@ namespace SimpleSpaceRogue
         private bool HandleInput(Keyboard info)
        {
 
-            Point newPlayerPos = _actor.Position;
-
-            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.W))
+           if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.W))
            {
-                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y - 1))
-                   {
-                       newPlayerPos += SadConsole.Directions.North;
-                       _mapScreen.mapConsole.UpdateFOV();
-
-                    }
+                _actor.Position += SadConsole.Directions.North;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.A))
            {
-                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y))
-                {
-                        newPlayerPos += SadConsole.Directions.West;
-                        _mapScreen.mapConsole.UpdateFOV();
-                }
+                _actor.Position += SadConsole.Directions.West;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.S))
            {
-
-                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X, newPlayerPos.Y + 1))
-                {
-                        newPlayerPos += SadConsole.Directions.South;
-                        _mapScreen.mapConsole.UpdateFOV();
-                }
+                _actor.Position += SadConsole.Directions.South;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D))
            {
-                   if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y))
-                   {
-                        newPlayerPos += SadConsole.Directions.East;
-                        _mapScreen.mapConsole.UpdateFOV();
-                   }
+                _actor.Position += SadConsole.Directions.East;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
            {
-                    if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y - 1))
-                    {
-                        newPlayerPos += SadConsole.Directions.NorthWest; 
-                        _mapScreen.mapConsole.UpdateFOV();
-                    }
+                _actor.Position += SadConsole.Directions.NorthWest;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
            {
-                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y - 1))
-                {
-                        newPlayerPos += SadConsole.Directions.NorthEast;
-                        _mapScreen.mapConsole.UpdateFOV();
-                }
+                _actor.Position += SadConsole.Directions.NorthEast;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Z))
            {
-                if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X - 1, newPlayerPos.Y + 1))
-                {
-                        newPlayerPos += SadConsole.Directions.SouthWest;
-                        _mapScreen.mapConsole.UpdateFOV();
-                }
+                _actor.Position += SadConsole.Directions.SouthWest;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
            if (info.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.C))
            {
-                    if (!_mapScreen.mapConsole.IsWall(newPlayerPos.X + 1, newPlayerPos.Y + 1))
-                    {
-                        newPlayerPos += SadConsole.Directions.SouthEast;    
-                        _mapScreen.mapConsole.UpdateFOV();
-                    }
+                _actor.Position += SadConsole.Directions.SouthEast;
+                _mapScreen.mapConsole.UpdateFOV();
            }
 
-           if (newPlayerPos != _actor.Position)
+           if (_actor.Position != _actor.Position)
            {
-               _actor.Position = newPlayerPos;
+               _actor.Position = _actor.Position;
                return true;
            }
            return false;
